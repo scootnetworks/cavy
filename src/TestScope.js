@@ -98,13 +98,11 @@ export default class TestScope {
       })
       .catch((error) => {
         if (error.message.match(/Network request failed/)) {
-          console.group(`Cavy test report server is not running at ${url}`);
+          console.log(`Cavy test report server is not running at ${url}`);
           console.log("If you are using cavy-cli, maybe it's not set up correctly or not reachable from this device?");
-          console.groupEnd();
         } else {
-          console.group('Error sending test results')
+          console.log('Error sending test results')
           console.warn(error.message);
-          console.groupEnd();
         }
       });
   }
