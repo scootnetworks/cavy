@@ -12,7 +12,7 @@ class ComponentNotFoundError extends Error {
 
 export default class TestScope {
 
-  constructor(component, waitTime, startDelay, shouldSendReport) {
+  constructor(component, waitTime, startDelay, shouldSendReport, reportPort) {
     this.component = component;
     this.testHooks = component.testHookStore;
 
@@ -21,6 +21,7 @@ export default class TestScope {
     this.waitTime = waitTime;
     this.startDelay = startDelay;
     this.shouldSendReport = shouldSendReport;
+    this.reportPort = reportPort;
 
     this.run.bind(this);
   }
@@ -80,7 +81,9 @@ export default class TestScope {
   };
 
   sendReport(report) {
-    const url = 'http://127.0.0.1:8082/report';
+    const url = `http://127.0.0.1:${this.reportPort}/report`;
+    console.log(`sending report via url ${url}`);
+
     const options = {
       method: 'POST',
       body: JSON.stringify(report),
